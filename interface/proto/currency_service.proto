@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "service";
+option java_outer_classname = "CurrencyServiceProto";
+
+enum Currency {
+    PLN = 0;
+    EUR = 1;
+    USD = 2;
+    JPY = 3;
+}
+
+message ExchangeRateRequest {
+    Currency baseCurrency = 1;
+    repeated Currency currencyTypes = 2;
+}
+
+message ExchangeRateInfo {
+    Currency currency = 1;
+    double purchase = 2;
+    double sale = 3;
+}
+
+message ExchangeRateSequence {
+    repeated ExchangeRateInfo exchangeRateInfo = 1;
+}
+
+service CurrencyService {
+    rpc getCurrencyExchangeRateStream(ExchangeRateRequest) returns (stream ExchangeRateSequence) {}
+}
