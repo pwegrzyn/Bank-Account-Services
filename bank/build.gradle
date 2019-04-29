@@ -1,17 +1,19 @@
 plugins {
     id 'java'
     id 'application'
+    id "com.google.protobuf" version "0.8.8"
 }
 
 apply plugin: 'application'
 apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
 
 group 'ds.middleware'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
-mainClassName = 'Main'
+mainClassName = 'code.Main'
 
 repositories {
     mavenCentral()
@@ -20,4 +22,24 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'com.zeroc:ice:3.7.2'
+    compile 'io.grpc:grpc-netty-shaded:1.20.0'
+    compile 'io.grpc:grpc-protobuf:1.20.0'
+    compile 'io.grpc:grpc-stub:1.20.0'
+    compile 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.7.1"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.20.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
 }

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "service";
+option java_package = "generated.service";
 option java_outer_classname = "CurrencyServiceProto";
 
 enum Currency {
@@ -27,5 +27,6 @@ message ExchangeRateSequence {
 }
 
 service CurrencyService {
+    rpc getCurrencyExchangeRate(ExchangeRateRequest) returns (ExchangeRateSequence) {}
     rpc getCurrencyExchangeRateStream(ExchangeRateRequest) returns (stream ExchangeRateSequence) {}
 }
