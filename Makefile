@@ -12,7 +12,7 @@ interface: interface/slice/bank.ice interface/proto/currency_service.proto
 	cp -r interface/generated/proto/java/* currency_service/src/main/java/
 	rm -rf interface/generated/ice/java/*
 	rm -rf interface/generated/ice/python/*
-	rm -rf interace/generated/proto/java/*
+	rm -rf interface/generated/proto/java/*
 	
 run_bank_client:
 	python client/code/main.py
