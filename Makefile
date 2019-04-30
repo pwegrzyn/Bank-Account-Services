@@ -18,7 +18,7 @@ run_bank_client:
 	python client/code/main.py
 
 run_currency_service:
-	cd ./currency_service; gradle run
+	cd ./currency_service; gradle run --console=plain
 
 run_bank_service:
-	cd ./bank; gradle run
+	cd ./bank; gradle run --console=plain

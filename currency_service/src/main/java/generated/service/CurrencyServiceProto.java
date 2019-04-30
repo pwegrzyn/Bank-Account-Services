@@ -39,19 +39,20 @@ public final class CurrencyServiceProto {
   static {
     java.lang.String[] descriptorData = {
       "\n&interface/proto/currency_service.proto" +
-      "\"X\n\023ExchangeRateRequest\022\037\n\014baseCurrency\030" +
-      "\001 \001(\0162\t.Currency\022 \n\rcurrencyTypes\030\002 \003(\0162" +
-      "\t.Currency\"O\n\020ExchangeRateInfo\022\033\n\010curren" +
-      "cy\030\001 \001(\0162\t.Currency\022\020\n\010purchase\030\002 \001(\001\022\014\n" +
-      "\004sale\030\003 \001(\001\"C\n\024ExchangeRateSequence\022+\n\020e" +
-      "xchangeRateInfo\030\001 \003(\0132\021.ExchangeRateInfo" +
-      "*.\n\010Currency\022\007\n\003PLN\020\000\022\007\n\003EUR\020\001\022\007\n\003USD\020\002\022" +
-      "\007\n\003JPY\020\0032\255\001\n\017CurrencyService\022H\n\027getCurre" +
-      "ncyExchangeRate\022\024.ExchangeRateRequest\032\025." +
-      "ExchangeRateSequence\"\000\022P\n\035getCurrencyExc" +
-      "hangeRateStream\022\024.ExchangeRateRequest\032\025." +
-      "ExchangeRateSequence\"\0000\001B+\n\021generated.se" +
-      "rviceB\024CurrencyServiceProtoP\001b\006proto3"
+      "\"W\n\023ExchangeRateRequest\022\037\n\014baseCurrency\030" +
+      "\001 \001(\0162\t.Currency\022\037\n\014currencyType\030\002 \003(\0162\t" +
+      ".Currency\"O\n\020ExchangeRateInfo\022\033\n\010currenc" +
+      "y\030\001 \001(\0162\t.Currency\022\020\n\010purchase\030\002 \001(\001\022\014\n\004" +
+      "sale\030\003 \001(\001\"C\n\024ExchangeRateSequence\022+\n\020ex" +
+      "changeRateInfo\030\001 \003(\0132\021.ExchangeRateInfo*" +
+      "@\n\010Currency\022\007\n\003PLN\020\000\022\007\n\003EUR\020\001\022\007\n\003USD\020\002\022\007" +
+      "\n\003JPY\020\003\022\007\n\003CHF\020\004\022\007\n\003CNH\020\0052\255\001\n\017CurrencySe" +
+      "rvice\022H\n\027getCurrencyExchangeRate\022\024.Excha" +
+      "ngeRateRequest\032\025.ExchangeRateSequence\"\000\022" +
+      "P\n\035getCurrencyExchangeRateStream\022\024.Excha" +
+      "ngeRateRequest\032\025.ExchangeRateSequence\"\0000" +
+      "\001B+\n\021generated.serviceB\024CurrencyServiceP" +
+      "rotoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -70,7 +71,7 @@ public final class CurrencyServiceProto {
     internal_static_ExchangeRateRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ExchangeRateRequest_descriptor,
-        new java.lang.String[] { "BaseCurrency", "CurrencyTypes", });
+        new java.lang.String[] { "BaseCurrency", "CurrencyType", });
     internal_static_ExchangeRateInfo_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ExchangeRateInfo_fieldAccessorTable = new

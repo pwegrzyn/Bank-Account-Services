@@ -9,11 +9,13 @@ enum Currency {
     EUR = 1;
     USD = 2;
     JPY = 3;
+    CHF = 4;
+    CNH = 5;
 }
 
 message ExchangeRateRequest {
     Currency baseCurrency = 1;
-    repeated Currency currencyTypes = 2;
+    repeated Currency currencyType = 2;
 }
 
 message ExchangeRateInfo {

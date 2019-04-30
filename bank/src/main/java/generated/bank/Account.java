@@ -15,17 +15,21 @@
 
 package generated.bank;
 
-public interface PremiumUser extends User
+public interface Account extends com.zeroc.Ice.Object
 {
-    Credit applyForCredit(Currency currency, double creditValue, int period, com.zeroc.Ice.Current current)
-        throws CurrencyNotSupported;
+    long checkAccountBalance(com.zeroc.Ice.Current current);
+
+    AccountType checkAccountType(com.zeroc.Ice.Current current);
+
+    Credit applyForCredit(Currency currency, long creditValue, int period, com.zeroc.Ice.Current current)
+        throws AuthorizationFailed,
+               CurrencyNotSupported;
 
     /** @hidden */
     static final String[] _iceIds =
     {
         "::Ice::Object",
-        "::generated::bank::PremiumUser",
-        "::generated::bank::User"
+        "::generated::bank::Account"
     };
 
     @Override
@@ -42,7 +46,43 @@ public interface PremiumUser extends User
 
     static String ice_staticId()
     {
-        return "::generated::bank::PremiumUser";
+        return "::generated::bank::Account";
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_checkAccountBalance(Account obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        inS.readEmptyParams();
+        long ret = obj.checkAccountBalance(current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeLong(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_checkAccountType(Account obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        inS.readEmptyParams();
+        AccountType ret = obj.checkAccountType(current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        AccountType.ice_write(ostr, ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /**
@@ -53,16 +93,16 @@ public interface PremiumUser extends User
      * @return -
      * @throws com.zeroc.Ice.UserException -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_applyForCredit(PremiumUser obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_applyForCredit(Account obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
         throws com.zeroc.Ice.UserException
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
         Currency iceP_currency;
-        double iceP_creditValue;
+        long iceP_creditValue;
         int iceP_period;
         iceP_currency = Currency.ice_read(istr);
-        iceP_creditValue = istr.readDouble();
+        iceP_creditValue = istr.readLong();
         iceP_period = istr.readInt();
         inS.endReadParams();
         Credit ret = obj.applyForCredit(iceP_currency, iceP_creditValue, iceP_period, current);
@@ -103,11 +143,11 @@ public interface PremiumUser extends User
             }
             case 1:
             {
-                return User._iceD_checkAccountBalance(this, in, current);
+                return _iceD_checkAccountBalance(this, in, current);
             }
             case 2:
             {
-                return User._iceD_checkAccountType(this, in, current);
+                return _iceD_checkAccountType(this, in, current);
             }
             case 3:
             {

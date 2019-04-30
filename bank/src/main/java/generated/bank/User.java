@@ -17,9 +17,13 @@ package generated.bank;
 
 public interface User extends com.zeroc.Ice.Object
 {
-    double checkAccountBalance(com.zeroc.Ice.Current current);
+    long checkAccountBalance(com.zeroc.Ice.Current current);
 
     AccountType checkAccountType(com.zeroc.Ice.Current current);
+
+    Credit applyForCredit(Currency currency, long creditValue, int period, com.zeroc.Ice.Current current)
+        throws AuthorizationFailed,
+               CurrencyNotSupported;
 
     /** @hidden */
     static final String[] _iceIds =
@@ -56,9 +60,9 @@ public interface User extends com.zeroc.Ice.Object
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        double ret = obj.checkAccountBalance(current);
+        long ret = obj.checkAccountBalance(current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeDouble(ret);
+        ostr.writeLong(ret);
         inS.endWriteParams(ostr);
         return inS.setResult(ostr);
     }
@@ -81,9 +85,37 @@ public interface User extends com.zeroc.Ice.Object
         return inS.setResult(ostr);
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+     * @throws com.zeroc.Ice.UserException -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_applyForCredit(User obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+        throws com.zeroc.Ice.UserException
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        Currency iceP_currency;
+        long iceP_creditValue;
+        int iceP_period;
+        iceP_currency = Currency.ice_read(istr);
+        iceP_creditValue = istr.readLong();
+        iceP_period = istr.readInt();
+        inS.endReadParams();
+        Credit ret = obj.applyForCredit(iceP_currency, iceP_creditValue, iceP_period, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        Credit.ice_write(ostr, ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
+        "applyForCredit",
         "checkAccountBalance",
         "checkAccountType",
         "ice_id",
@@ -107,25 +139,29 @@ public interface User extends com.zeroc.Ice.Object
         {
             case 0:
             {
-                return _iceD_checkAccountBalance(this, in, current);
+                return _iceD_applyForCredit(this, in, current);
             }
             case 1:
             {
-                return _iceD_checkAccountType(this, in, current);
+                return _iceD_checkAccountBalance(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return _iceD_checkAccountType(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 5:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+            }
+            case 6:
             {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }

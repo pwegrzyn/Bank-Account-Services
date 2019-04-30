@@ -18,13 +18,26 @@ package generated.bank;
 public interface SystemPrx extends com.zeroc.Ice.ObjectPrx
 {
     default AccountCreationResult createAccount(UserData userData)
+        throws PESELAlreadyInUse
     {
         return createAccount(userData, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
     default AccountCreationResult createAccount(UserData userData, java.util.Map<String, String> context)
+        throws PESELAlreadyInUse
     {
-        return _iceI_createAccountAsync(userData, context, true).waitForResponse();
+        try
+        {
+            return _iceI_createAccountAsync(userData, context, true).waitForResponseOrUserEx();
+        }
+        catch(PESELAlreadyInUse ex)
+        {
+            throw ex;
+        }
+        catch(com.zeroc.Ice.UserException ex)
+        {
+            throw new com.zeroc.Ice.UnknownUserException(ex.ice_id(), ex);
+        }
     }
 
     default java.util.concurrent.CompletableFuture<AccountCreationResult> createAccountAsync(UserData userData)
@@ -46,7 +59,7 @@ public interface SystemPrx extends com.zeroc.Ice.ObjectPrx
      **/
     default com.zeroc.IceInternal.OutgoingAsync<AccountCreationResult> _iceI_createAccountAsync(UserData iceP_userData, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<AccountCreationResult> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "createAccount", null, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<AccountCreationResult> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "createAccount", null, sync, _iceE_createAccount);
         f.invoke(true, context, null, ostr -> {
                      UserData.ice_write(ostr, iceP_userData);
                  }, istr -> {
@@ -57,83 +70,24 @@ public interface SystemPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default UserPrx logInStandard(String pesel)
-        throws InvalidCredentials
-    {
-        return logInStandard(pesel, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default UserPrx logInStandard(String pesel, java.util.Map<String, String> context)
-        throws InvalidCredentials
-    {
-        try
-        {
-            return _iceI_logInStandardAsync(pesel, context, true).waitForResponseOrUserEx();
-        }
-        catch(InvalidCredentials ex)
-        {
-            throw ex;
-        }
-        catch(com.zeroc.Ice.UserException ex)
-        {
-            throw new com.zeroc.Ice.UnknownUserException(ex.ice_id(), ex);
-        }
-    }
-
-    default java.util.concurrent.CompletableFuture<UserPrx> logInStandardAsync(String pesel)
-    {
-        return _iceI_logInStandardAsync(pesel, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<UserPrx> logInStandardAsync(String pesel, java.util.Map<String, String> context)
-    {
-        return _iceI_logInStandardAsync(pesel, context, false);
-    }
-
-    /**
-     * @hidden
-     * @param iceP_pesel -
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<UserPrx> _iceI_logInStandardAsync(String iceP_pesel, java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<UserPrx> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "logInStandard", null, sync, _iceE_logInStandard);
-        f.invoke(true, context, null, ostr -> {
-                     ostr.writeString(iceP_pesel);
-                 }, istr -> {
-                     UserPrx ret;
-                     ret = UserPrx.uncheckedCast(istr.readProxy());
-                     return ret;
-                 });
-        return f;
-    }
-
     /** @hidden */
-    static final Class<?>[] _iceE_logInStandard =
+    static final Class<?>[] _iceE_createAccount =
     {
-        InvalidCredentials.class
+        PESELAlreadyInUse.class
     };
 
-    default PremiumUserPrx logInPremium(String pesel)
-        throws AuthorizationFailed,
-               InvalidCredentials
+    default AccountPrx logInToAccount(String pesel)
+        throws InvalidCredentials
     {
-        return logInPremium(pesel, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return logInToAccount(pesel, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default PremiumUserPrx logInPremium(String pesel, java.util.Map<String, String> context)
-        throws AuthorizationFailed,
-               InvalidCredentials
+    default AccountPrx logInToAccount(String pesel, java.util.Map<String, String> context)
+        throws InvalidCredentials
     {
         try
         {
-            return _iceI_logInPremiumAsync(pesel, context, true).waitForResponseOrUserEx();
-        }
-        catch(AuthorizationFailed ex)
-        {
-            throw ex;
+            return _iceI_logInToAccountAsync(pesel, context, true).waitForResponseOrUserEx();
         }
         catch(InvalidCredentials ex)
         {
@@ -145,14 +99,14 @@ public interface SystemPrx extends com.zeroc.Ice.ObjectPrx
         }
     }
 
-    default java.util.concurrent.CompletableFuture<PremiumUserPrx> logInPremiumAsync(String pesel)
+    default java.util.concurrent.CompletableFuture<AccountPrx> logInToAccountAsync(String pesel)
     {
-        return _iceI_logInPremiumAsync(pesel, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_logInToAccountAsync(pesel, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<PremiumUserPrx> logInPremiumAsync(String pesel, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<AccountPrx> logInToAccountAsync(String pesel, java.util.Map<String, String> context)
     {
-        return _iceI_logInPremiumAsync(pesel, context, false);
+        return _iceI_logInToAccountAsync(pesel, context, false);
     }
 
     /**
@@ -162,23 +116,22 @@ public interface SystemPrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<PremiumUserPrx> _iceI_logInPremiumAsync(String iceP_pesel, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<AccountPrx> _iceI_logInToAccountAsync(String iceP_pesel, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<PremiumUserPrx> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "logInPremium", null, sync, _iceE_logInPremium);
+        com.zeroc.IceInternal.OutgoingAsync<AccountPrx> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "logInToAccount", null, sync, _iceE_logInToAccount);
         f.invoke(true, context, null, ostr -> {
                      ostr.writeString(iceP_pesel);
                  }, istr -> {
-                     PremiumUserPrx ret;
-                     ret = PremiumUserPrx.uncheckedCast(istr.readProxy());
+                     AccountPrx ret;
+                     ret = AccountPrx.uncheckedCast(istr.readProxy());
                      return ret;
                  });
         return f;
     }
 
     /** @hidden */
-    static final Class<?>[] _iceE_logInPremium =
+    static final Class<?>[] _iceE_logInToAccount =
     {
-        AuthorizationFailed.class,
         InvalidCredentials.class
     };
 

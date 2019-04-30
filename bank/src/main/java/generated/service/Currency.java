@@ -24,6 +24,14 @@ public enum Currency
    * <code>JPY = 3;</code>
    */
   JPY(3),
+  /**
+   * <code>CHF = 4;</code>
+   */
+  CHF(4),
+  /**
+   * <code>CNH = 5;</code>
+   */
+  CNH(5),
   UNRECOGNIZED(-1),
   ;
 
@@ -43,6 +51,14 @@ public enum Currency
    * <code>JPY = 3;</code>
    */
   public static final int JPY_VALUE = 3;
+  /**
+   * <code>CHF = 4;</code>
+   */
+  public static final int CHF_VALUE = 4;
+  /**
+   * <code>CNH = 5;</code>
+   */
+  public static final int CNH_VALUE = 5;
 
 
   public final int getNumber() {
@@ -67,6 +83,8 @@ public enum Currency
       case 1: return EUR;
       case 2: return USD;
       case 3: return JPY;
+      case 4: return CHF;
+      case 5: return CNH;
       default: return null;
     }
   }

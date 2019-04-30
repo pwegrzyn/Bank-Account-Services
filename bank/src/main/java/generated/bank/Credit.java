@@ -18,9 +18,9 @@ package generated.bank;
 public class Credit implements java.lang.Cloneable,
                                java.io.Serializable
 {
-    public double creditRateBaseCurrency;
+    public long creditRateBaseCurrency;
 
-    public double creditRateForeignCurrency;
+    public long creditRateForeignCurrency;
 
     public Currency baseCurrency;
 
@@ -28,11 +28,11 @@ public class Credit implements java.lang.Cloneable,
 
     public int creditPeriod;
 
-    public double creditValue;
+    public long creditValue;
 
     public double interestRate;
 
-    public double creditCost;
+    public long creditCost;
 
     public Credit()
     {
@@ -40,7 +40,7 @@ public class Credit implements java.lang.Cloneable,
         this.foreignCurrency = Currency.PLN;
     }
 
-    public Credit(double creditRateBaseCurrency, double creditRateForeignCurrency, Currency baseCurrency, Currency foreignCurrency, int creditPeriod, double creditValue, double interestRate, double creditCost)
+    public Credit(long creditRateBaseCurrency, long creditRateForeignCurrency, Currency baseCurrency, Currency foreignCurrency, int creditPeriod, long creditValue, double interestRate, long creditCost)
     {
         this.creditRateBaseCurrency = creditRateBaseCurrency;
         this.creditRateForeignCurrency = creditRateForeignCurrency;
@@ -142,26 +142,26 @@ public class Credit implements java.lang.Cloneable,
 
     public void ice_writeMembers(com.zeroc.Ice.OutputStream ostr)
     {
-        ostr.writeDouble(this.creditRateBaseCurrency);
-        ostr.writeDouble(this.creditRateForeignCurrency);
+        ostr.writeLong(this.creditRateBaseCurrency);
+        ostr.writeLong(this.creditRateForeignCurrency);
         Currency.ice_write(ostr, this.baseCurrency);
         Currency.ice_write(ostr, this.foreignCurrency);
         ostr.writeInt(this.creditPeriod);
-        ostr.writeDouble(this.creditValue);
+        ostr.writeLong(this.creditValue);
         ostr.writeDouble(this.interestRate);
-        ostr.writeDouble(this.creditCost);
+        ostr.writeLong(this.creditCost);
     }
 
     public void ice_readMembers(com.zeroc.Ice.InputStream istr)
     {
-        this.creditRateBaseCurrency = istr.readDouble();
-        this.creditRateForeignCurrency = istr.readDouble();
+        this.creditRateBaseCurrency = istr.readLong();
+        this.creditRateForeignCurrency = istr.readLong();
         this.baseCurrency = Currency.ice_read(istr);
         this.foreignCurrency = Currency.ice_read(istr);
         this.creditPeriod = istr.readInt();
-        this.creditValue = istr.readDouble();
+        this.creditValue = istr.readLong();
         this.interestRate = istr.readDouble();
-        this.creditCost = istr.readDouble();
+        this.creditCost = istr.readLong();
     }
 
     static public void ice_write(com.zeroc.Ice.OutputStream ostr, Credit v)

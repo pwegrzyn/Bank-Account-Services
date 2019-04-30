@@ -16,7 +16,7 @@
 package generated.bank;
 
 /** @hidden */
-public class _PremiumUserPrxI extends com.zeroc.Ice._ObjectPrxI implements PremiumUserPrx
+public class _AccountPrxI extends com.zeroc.Ice._ObjectPrxI implements AccountPrx
 {
     /** @hidden */
     public static final long serialVersionUID = 0L;

@@ -20,7 +20,9 @@ public enum Currency implements java.io.Serializable
     PLN(0),
     EUR(1),
     USD(2),
-    JPY(3);
+    JPY(3),
+    CHF(4),
+    CNH(5);
 
     public int value()
     {
@@ -39,6 +41,10 @@ public enum Currency implements java.io.Serializable
             return USD;
         case 3:
             return JPY;
+        case 4:
+            return CHF;
+        case 5:
+            return CNH;
         }
         return null;
     }
@@ -50,24 +56,24 @@ public enum Currency implements java.io.Serializable
 
     public void ice_write(com.zeroc.Ice.OutputStream ostr)
     {
-        ostr.writeEnum(_value, 3);
+        ostr.writeEnum(_value, 5);
     }
 
     public static void ice_write(com.zeroc.Ice.OutputStream ostr, Currency v)
     {
         if(v == null)
         {
-            ostr.writeEnum(generated.bank.Currency.PLN.value(), 3);
+            ostr.writeEnum(generated.bank.Currency.PLN.value(), 5);
         }
         else
         {
-            ostr.writeEnum(v.value(), 3);
+            ostr.writeEnum(v.value(), 5);
         }
     }
 
     public static Currency ice_read(com.zeroc.Ice.InputStream istr)
     {
-        int v = istr.readEnum(3);
+        int v = istr.readEnum(5);
         return validate(v);
     }
 

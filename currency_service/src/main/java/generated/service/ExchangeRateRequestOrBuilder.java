@@ -17,24 +17,24 @@ public interface ExchangeRateRequestOrBuilder extends
   generated.service.Currency getBaseCurrency();
 
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
-  java.util.List<generated.service.Currency> getCurrencyTypesList();
+  java.util.List<generated.service.Currency> getCurrencyTypeList();
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
-  int getCurrencyTypesCount();
+  int getCurrencyTypeCount();
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
-  generated.service.Currency getCurrencyTypes(int index);
+  generated.service.Currency getCurrencyType(int index);
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
   java.util.List<java.lang.Integer>
-  getCurrencyTypesValueList();
+  getCurrencyTypeValueList();
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
-  int getCurrencyTypesValue(int index);
+  int getCurrencyTypeValue(int index);
 }

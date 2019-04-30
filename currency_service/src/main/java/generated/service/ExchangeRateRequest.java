@@ -17,7 +17,7 @@ private static final long serialVersionUID = 0L;
   }
   private ExchangeRateRequest() {
     baseCurrency_ = 0;
-    currencyTypes_ = java.util.Collections.emptyList();
+    currencyType_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -53,10 +53,10 @@ private static final long serialVersionUID = 0L;
           case 16: {
             int rawValue = input.readEnum();
             if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-              currencyTypes_ = new java.util.ArrayList<java.lang.Integer>();
+              currencyType_ = new java.util.ArrayList<java.lang.Integer>();
               mutable_bitField0_ |= 0x00000002;
             }
-            currencyTypes_.add(rawValue);
+            currencyType_.add(rawValue);
             break;
           }
           case 18: {
@@ -65,10 +65,10 @@ private static final long serialVersionUID = 0L;
             while(input.getBytesUntilLimit() > 0) {
               int rawValue = input.readEnum();
               if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                currencyTypes_ = new java.util.ArrayList<java.lang.Integer>();
+                currencyType_ = new java.util.ArrayList<java.lang.Integer>();
                 mutable_bitField0_ |= 0x00000002;
               }
-              currencyTypes_.add(rawValue);
+              currencyType_.add(rawValue);
             }
             input.popLimit(oldLimit);
             break;
@@ -89,7 +89,7 @@ private static final long serialVersionUID = 0L;
           e).setUnfinishedMessage(this);
     } finally {
       if (((mutable_bitField0_ & 0x00000002) != 0)) {
-        currencyTypes_ = java.util.Collections.unmodifiableList(currencyTypes_);
+        currencyType_ = java.util.Collections.unmodifiableList(currencyType_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -126,10 +126,10 @@ private static final long serialVersionUID = 0L;
     return result == null ? generated.service.Currency.UNRECOGNIZED : result;
   }
 
-  public static final int CURRENCYTYPES_FIELD_NUMBER = 2;
-  private java.util.List<java.lang.Integer> currencyTypes_;
+  public static final int CURRENCYTYPE_FIELD_NUMBER = 2;
+  private java.util.List<java.lang.Integer> currencyType_;
   private static final com.google.protobuf.Internal.ListAdapter.Converter<
-      java.lang.Integer, generated.service.Currency> currencyTypes_converter_ =
+      java.lang.Integer, generated.service.Currency> currencyType_converter_ =
           new com.google.protobuf.Internal.ListAdapter.Converter<
               java.lang.Integer, generated.service.Currency>() {
             public generated.service.Currency convert(java.lang.Integer from) {
@@ -139,38 +139,38 @@ private static final long serialVersionUID = 0L;
             }
           };
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
-  public java.util.List<generated.service.Currency> getCurrencyTypesList() {
+  public java.util.List<generated.service.Currency> getCurrencyTypeList() {
     return new com.google.protobuf.Internal.ListAdapter<
-        java.lang.Integer, generated.service.Currency>(currencyTypes_, currencyTypes_converter_);
+        java.lang.Integer, generated.service.Currency>(currencyType_, currencyType_converter_);
   }
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
-  public int getCurrencyTypesCount() {
-    return currencyTypes_.size();
+  public int getCurrencyTypeCount() {
+    return currencyType_.size();
   }
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
-  public generated.service.Currency getCurrencyTypes(int index) {
-    return currencyTypes_converter_.convert(currencyTypes_.get(index));
+  public generated.service.Currency getCurrencyType(int index) {
+    return currencyType_converter_.convert(currencyType_.get(index));
   }
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
   public java.util.List<java.lang.Integer>
-  getCurrencyTypesValueList() {
-    return currencyTypes_;
+  getCurrencyTypeValueList() {
+    return currencyType_;
   }
   /**
-   * <code>repeated .Currency currencyTypes = 2;</code>
+   * <code>repeated .Currency currencyType = 2;</code>
    */
-  public int getCurrencyTypesValue(int index) {
-    return currencyTypes_.get(index);
+  public int getCurrencyTypeValue(int index) {
+    return currencyType_.get(index);
   }
-  private int currencyTypesMemoizedSerializedSize;
+  private int currencyTypeMemoizedSerializedSize;
 
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
@@ -190,12 +190,12 @@ private static final long serialVersionUID = 0L;
     if (baseCurrency_ != generated.service.Currency.PLN.getNumber()) {
       output.writeEnum(1, baseCurrency_);
     }
-    if (getCurrencyTypesList().size() > 0) {
+    if (getCurrencyTypeList().size() > 0) {
       output.writeUInt32NoTag(18);
-      output.writeUInt32NoTag(currencyTypesMemoizedSerializedSize);
+      output.writeUInt32NoTag(currencyTypeMemoizedSerializedSize);
     }
-    for (int i = 0; i < currencyTypes_.size(); i++) {
-      output.writeEnumNoTag(currencyTypes_.get(i));
+    for (int i = 0; i < currencyType_.size(); i++) {
+      output.writeEnumNoTag(currencyType_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -212,15 +212,15 @@ private static final long serialVersionUID = 0L;
     }
     {
       int dataSize = 0;
-      for (int i = 0; i < currencyTypes_.size(); i++) {
+      for (int i = 0; i < currencyType_.size(); i++) {
         dataSize += com.google.protobuf.CodedOutputStream
-          .computeEnumSizeNoTag(currencyTypes_.get(i));
+          .computeEnumSizeNoTag(currencyType_.get(i));
       }
       size += dataSize;
-      if (!getCurrencyTypesList().isEmpty()) {  size += 1;
+      if (!getCurrencyTypeList().isEmpty()) {  size += 1;
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32SizeNoTag(dataSize);
-      }currencyTypesMemoizedSerializedSize = dataSize;
+      }currencyTypeMemoizedSerializedSize = dataSize;
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -238,7 +238,7 @@ private static final long serialVersionUID = 0L;
     generated.service.ExchangeRateRequest other = (generated.service.ExchangeRateRequest) obj;
 
     if (baseCurrency_ != other.baseCurrency_) return false;
-    if (!currencyTypes_.equals(other.currencyTypes_)) return false;
+    if (!currencyType_.equals(other.currencyType_)) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -252,9 +252,9 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + BASECURRENCY_FIELD_NUMBER;
     hash = (53 * hash) + baseCurrency_;
-    if (getCurrencyTypesCount() > 0) {
-      hash = (37 * hash) + CURRENCYTYPES_FIELD_NUMBER;
-      hash = (53 * hash) + currencyTypes_.hashCode();
+    if (getCurrencyTypeCount() > 0) {
+      hash = (37 * hash) + CURRENCYTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + currencyType_.hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -391,7 +391,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       baseCurrency_ = 0;
 
-      currencyTypes_ = java.util.Collections.emptyList();
+      currencyType_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
@@ -423,10 +423,10 @@ private static final long serialVersionUID = 0L;
       int to_bitField0_ = 0;
       result.baseCurrency_ = baseCurrency_;
       if (((bitField0_ & 0x00000002) != 0)) {
-        currencyTypes_ = java.util.Collections.unmodifiableList(currencyTypes_);
+        currencyType_ = java.util.Collections.unmodifiableList(currencyType_);
         bitField0_ = (bitField0_ & ~0x00000002);
       }
-      result.currencyTypes_ = currencyTypes_;
+      result.currencyType_ = currencyType_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -479,13 +479,13 @@ private static final long serialVersionUID = 0L;
       if (other.baseCurrency_ != 0) {
         setBaseCurrencyValue(other.getBaseCurrencyValue());
       }
-      if (!other.currencyTypes_.isEmpty()) {
-        if (currencyTypes_.isEmpty()) {
-          currencyTypes_ = other.currencyTypes_;
+      if (!other.currencyType_.isEmpty()) {
+        if (currencyType_.isEmpty()) {
+          currencyType_ = other.currencyType_;
           bitField0_ = (bitField0_ & ~0x00000002);
         } else {
-          ensureCurrencyTypesIsMutable();
-          currencyTypes_.addAll(other.currencyTypes_);
+          ensureCurrencyTypeIsMutable();
+          currencyType_.addAll(other.currencyType_);
         }
         onChanged();
       }
@@ -564,119 +564,119 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.util.List<java.lang.Integer> currencyTypes_ =
+    private java.util.List<java.lang.Integer> currencyType_ =
       java.util.Collections.emptyList();
-    private void ensureCurrencyTypesIsMutable() {
+    private void ensureCurrencyTypeIsMutable() {
       if (!((bitField0_ & 0x00000002) != 0)) {
-        currencyTypes_ = new java.util.ArrayList<java.lang.Integer>(currencyTypes_);
+        currencyType_ = new java.util.ArrayList<java.lang.Integer>(currencyType_);
         bitField0_ |= 0x00000002;
       }
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public java.util.List<generated.service.Currency> getCurrencyTypesList() {
+    public java.util.List<generated.service.Currency> getCurrencyTypeList() {
       return new com.google.protobuf.Internal.ListAdapter<
-          java.lang.Integer, generated.service.Currency>(currencyTypes_, currencyTypes_converter_);
+          java.lang.Integer, generated.service.Currency>(currencyType_, currencyType_converter_);
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public int getCurrencyTypesCount() {
-      return currencyTypes_.size();
+    public int getCurrencyTypeCount() {
+      return currencyType_.size();
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public generated.service.Currency getCurrencyTypes(int index) {
-      return currencyTypes_converter_.convert(currencyTypes_.get(index));
+    public generated.service.Currency getCurrencyType(int index) {
+      return currencyType_converter_.convert(currencyType_.get(index));
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public Builder setCurrencyTypes(
+    public Builder setCurrencyType(
         int index, generated.service.Currency value) {
       if (value == null) {
         throw new NullPointerException();
       }
-      ensureCurrencyTypesIsMutable();
-      currencyTypes_.set(index, value.getNumber());
+      ensureCurrencyTypeIsMutable();
+      currencyType_.set(index, value.getNumber());
       onChanged();
       return this;
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public Builder addCurrencyTypes(generated.service.Currency value) {
+    public Builder addCurrencyType(generated.service.Currency value) {
       if (value == null) {
         throw new NullPointerException();
       }
-      ensureCurrencyTypesIsMutable();
-      currencyTypes_.add(value.getNumber());
+      ensureCurrencyTypeIsMutable();
+      currencyType_.add(value.getNumber());
       onChanged();
       return this;
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public Builder addAllCurrencyTypes(
+    public Builder addAllCurrencyType(
         java.lang.Iterable<? extends generated.service.Currency> values) {
-      ensureCurrencyTypesIsMutable();
+      ensureCurrencyTypeIsMutable();
       for (generated.service.Currency value : values) {
-        currencyTypes_.add(value.getNumber());
+        currencyType_.add(value.getNumber());
       }
       onChanged();
       return this;
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public Builder clearCurrencyTypes() {
-      currencyTypes_ = java.util.Collections.emptyList();
+    public Builder clearCurrencyType() {
+      currencyType_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000002);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
     public java.util.List<java.lang.Integer>
-    getCurrencyTypesValueList() {
-      return java.util.Collections.unmodifiableList(currencyTypes_);
+    getCurrencyTypeValueList() {
+      return java.util.Collections.unmodifiableList(currencyType_);
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public int getCurrencyTypesValue(int index) {
-      return currencyTypes_.get(index);
+    public int getCurrencyTypeValue(int index) {
+      return currencyType_.get(index);
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public Builder setCurrencyTypesValue(
+    public Builder setCurrencyTypeValue(
         int index, int value) {
-      ensureCurrencyTypesIsMutable();
-      currencyTypes_.set(index, value);
+      ensureCurrencyTypeIsMutable();
+      currencyType_.set(index, value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public Builder addCurrencyTypesValue(int value) {
-      ensureCurrencyTypesIsMutable();
-      currencyTypes_.add(value);
+    public Builder addCurrencyTypeValue(int value) {
+      ensureCurrencyTypeIsMutable();
+      currencyType_.add(value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated .Currency currencyTypes = 2;</code>
+     * <code>repeated .Currency currencyType = 2;</code>
      */
-    public Builder addAllCurrencyTypesValue(
+    public Builder addAllCurrencyTypeValue(
         java.lang.Iterable<java.lang.Integer> values) {
-      ensureCurrencyTypesIsMutable();
+      ensureCurrencyTypeIsMutable();
       for (int value : values) {
-        currencyTypes_.add(value);
+        currencyType_.add(value);
       }
       onChanged();
       return this;

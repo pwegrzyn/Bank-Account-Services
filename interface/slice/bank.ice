@@ -9,7 +9,9 @@ module generated {
             EUR,
             USD,
             JPY,
-        };
+            CHF,
+            CNH
+        }
     
         enum AccountType { 
             STANDARD, 
@@ -20,7 +22,7 @@ module generated {
             string name;
             string surname;
             string pesel;
-            int monthlyIncome;
+            long monthlyIncome;
         };
     
         struct AccountCreationResult {
@@ -29,14 +31,14 @@ module generated {
         };
     
         struct Credit {
-            double creditRateBaseCurrency;
-            double creditRateForeignCurrency;
+            long creditRateBaseCurrency;
+            long creditRateForeignCurrency;
             Currency baseCurrency;
             Currency foreignCurrency;
             int creditPeriod;
-            double creditValue;
+            long creditValue;
             double interestRate;
-            double creditCost;
+            long creditCost;
         };
     
         exception BankSystemException {
@@ -44,24 +46,21 @@ module generated {
         };
     
         exception AuthorizationFailed extends BankSystemException {};
+        exception PESELAlreadyInUse extends BankSystemException {};
         exception InvalidCredentials extends BankSystemException {};
         exception CurrencyNotSupported extends BankSystemException {};
         exception InternalSystemError extends BankSystemException {};
         exception SystemCurrentlyUnavailable extends BankSystemException {};
     
-        interface User {
-            double checkAccountBalance();
+        interface Account {
+            long checkAccountBalance();
             AccountType checkAccountType();
-        };
-    
-        interface PremiumUser extends User {
-            Credit applyForCredit(Currency currency, double creditValue, int period) throws CurrencyNotSupported;
+            Credit applyForCredit(Currency currency, long creditValue, int period) throws CurrencyNotSupported, AuthorizationFailed;
         };
     
         interface System {
-            AccountCreationResult createAccount(UserData userData);
-            User* logInStandard(string pesel) throws InvalidCredentials;
-            PremiumUser* logInPremium(string pesel) throws InvalidCredentials, AuthorizationFailed;
+            AccountCreationResult createAccount(UserData userData) throws PESELAlreadyInUse;
+            Account* logInToAccount(string pesel) throws InvalidCredentials;
         };
     
     };

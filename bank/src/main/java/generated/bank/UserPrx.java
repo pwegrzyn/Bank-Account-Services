@@ -17,22 +17,22 @@ package generated.bank;
 
 public interface UserPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default double checkAccountBalance()
+    default long checkAccountBalance()
     {
         return checkAccountBalance(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default double checkAccountBalance(java.util.Map<String, String> context)
+    default long checkAccountBalance(java.util.Map<String, String> context)
     {
         return _iceI_checkAccountBalanceAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Double> checkAccountBalanceAsync()
+    default java.util.concurrent.CompletableFuture<java.lang.Long> checkAccountBalanceAsync()
     {
         return _iceI_checkAccountBalanceAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Double> checkAccountBalanceAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.Long> checkAccountBalanceAsync(java.util.Map<String, String> context)
     {
         return _iceI_checkAccountBalanceAsync(context, false);
     }
@@ -43,12 +43,12 @@ public interface UserPrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Double> _iceI_checkAccountBalanceAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Long> _iceI_checkAccountBalanceAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Double> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "checkAccountBalance", null, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Long> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "checkAccountBalance", null, sync, null);
         f.invoke(true, context, null, null, istr -> {
-                     double ret;
-                     ret = istr.readDouble();
+                     long ret;
+                     ret = istr.readLong();
                      return ret;
                  });
         return f;
@@ -90,6 +90,76 @@ public interface UserPrx extends com.zeroc.Ice.ObjectPrx
                  });
         return f;
     }
+
+    default Credit applyForCredit(Currency currency, long creditValue, int period)
+        throws AuthorizationFailed,
+               CurrencyNotSupported
+    {
+        return applyForCredit(currency, creditValue, period, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default Credit applyForCredit(Currency currency, long creditValue, int period, java.util.Map<String, String> context)
+        throws AuthorizationFailed,
+               CurrencyNotSupported
+    {
+        try
+        {
+            return _iceI_applyForCreditAsync(currency, creditValue, period, context, true).waitForResponseOrUserEx();
+        }
+        catch(AuthorizationFailed ex)
+        {
+            throw ex;
+        }
+        catch(CurrencyNotSupported ex)
+        {
+            throw ex;
+        }
+        catch(com.zeroc.Ice.UserException ex)
+        {
+            throw new com.zeroc.Ice.UnknownUserException(ex.ice_id(), ex);
+        }
+    }
+
+    default java.util.concurrent.CompletableFuture<Credit> applyForCreditAsync(Currency currency, long creditValue, int period)
+    {
+        return _iceI_applyForCreditAsync(currency, creditValue, period, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Credit> applyForCreditAsync(Currency currency, long creditValue, int period, java.util.Map<String, String> context)
+    {
+        return _iceI_applyForCreditAsync(currency, creditValue, period, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_currency -
+     * @param iceP_creditValue -
+     * @param iceP_period -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Credit> _iceI_applyForCreditAsync(Currency iceP_currency, long iceP_creditValue, int iceP_period, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Credit> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "applyForCredit", null, sync, _iceE_applyForCredit);
+        f.invoke(true, context, null, ostr -> {
+                     Currency.ice_write(ostr, iceP_currency);
+                     ostr.writeLong(iceP_creditValue);
+                     ostr.writeInt(iceP_period);
+                 }, istr -> {
+                     Credit ret;
+                     ret = Credit.ice_read(istr);
+                     return ret;
+                 });
+        return f;
+    }
+
+    /** @hidden */
+    static final Class<?>[] _iceE_applyForCredit =
+    {
+        AuthorizationFailed.class,
+        CurrencyNotSupported.class
+    };
 
     /**
      * Contacts the remote server to verify that the object implements this type.

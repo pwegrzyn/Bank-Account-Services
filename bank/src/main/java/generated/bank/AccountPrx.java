@@ -15,20 +15,100 @@
 
 package generated.bank;
 
-public interface PremiumUserPrx extends UserPrx
+public interface AccountPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default Credit applyForCredit(Currency currency, double creditValue, int period)
-        throws CurrencyNotSupported
+    default long checkAccountBalance()
+    {
+        return checkAccountBalance(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default long checkAccountBalance(java.util.Map<String, String> context)
+    {
+        return _iceI_checkAccountBalanceAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Long> checkAccountBalanceAsync()
+    {
+        return _iceI_checkAccountBalanceAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Long> checkAccountBalanceAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_checkAccountBalanceAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Long> _iceI_checkAccountBalanceAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Long> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "checkAccountBalance", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     long ret;
+                     ret = istr.readLong();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default AccountType checkAccountType()
+    {
+        return checkAccountType(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default AccountType checkAccountType(java.util.Map<String, String> context)
+    {
+        return _iceI_checkAccountTypeAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<AccountType> checkAccountTypeAsync()
+    {
+        return _iceI_checkAccountTypeAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<AccountType> checkAccountTypeAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_checkAccountTypeAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<AccountType> _iceI_checkAccountTypeAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<AccountType> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "checkAccountType", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     AccountType ret;
+                     ret = AccountType.ice_read(istr);
+                     return ret;
+                 });
+        return f;
+    }
+
+    default Credit applyForCredit(Currency currency, long creditValue, int period)
+        throws AuthorizationFailed,
+               CurrencyNotSupported
     {
         return applyForCredit(currency, creditValue, period, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default Credit applyForCredit(Currency currency, double creditValue, int period, java.util.Map<String, String> context)
-        throws CurrencyNotSupported
+    default Credit applyForCredit(Currency currency, long creditValue, int period, java.util.Map<String, String> context)
+        throws AuthorizationFailed,
+               CurrencyNotSupported
     {
         try
         {
             return _iceI_applyForCreditAsync(currency, creditValue, period, context, true).waitForResponseOrUserEx();
+        }
+        catch(AuthorizationFailed ex)
+        {
+            throw ex;
         }
         catch(CurrencyNotSupported ex)
         {
@@ -40,12 +120,12 @@ public interface PremiumUserPrx extends UserPrx
         }
     }
 
-    default java.util.concurrent.CompletableFuture<Credit> applyForCreditAsync(Currency currency, double creditValue, int period)
+    default java.util.concurrent.CompletableFuture<Credit> applyForCreditAsync(Currency currency, long creditValue, int period)
     {
         return _iceI_applyForCreditAsync(currency, creditValue, period, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Credit> applyForCreditAsync(Currency currency, double creditValue, int period, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Credit> applyForCreditAsync(Currency currency, long creditValue, int period, java.util.Map<String, String> context)
     {
         return _iceI_applyForCreditAsync(currency, creditValue, period, context, false);
     }
@@ -59,12 +139,12 @@ public interface PremiumUserPrx extends UserPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Credit> _iceI_applyForCreditAsync(Currency iceP_currency, double iceP_creditValue, int iceP_period, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Credit> _iceI_applyForCreditAsync(Currency iceP_currency, long iceP_creditValue, int iceP_period, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Credit> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "applyForCredit", null, sync, _iceE_applyForCredit);
         f.invoke(true, context, null, ostr -> {
                      Currency.ice_write(ostr, iceP_currency);
-                     ostr.writeDouble(iceP_creditValue);
+                     ostr.writeLong(iceP_creditValue);
                      ostr.writeInt(iceP_period);
                  }, istr -> {
                      Credit ret;
@@ -77,6 +157,7 @@ public interface PremiumUserPrx extends UserPrx
     /** @hidden */
     static final Class<?>[] _iceE_applyForCredit =
     {
+        AuthorizationFailed.class,
         CurrencyNotSupported.class
     };
 
@@ -86,9 +167,9 @@ public interface PremiumUserPrx extends UserPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static PremiumUserPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static AccountPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), PremiumUserPrx.class, _PremiumUserPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), AccountPrx.class, _AccountPrxI.class);
     }
 
     /**
@@ -98,9 +179,9 @@ public interface PremiumUserPrx extends UserPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static PremiumUserPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
+    static AccountPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), PremiumUserPrx.class, _PremiumUserPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), AccountPrx.class, _AccountPrxI.class);
     }
 
     /**
@@ -110,9 +191,9 @@ public interface PremiumUserPrx extends UserPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static PremiumUserPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static AccountPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), PremiumUserPrx.class, _PremiumUserPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), AccountPrx.class, _AccountPrxI.class);
     }
 
     /**
@@ -123,9 +204,9 @@ public interface PremiumUserPrx extends UserPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static PremiumUserPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
+    static AccountPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), PremiumUserPrx.class, _PremiumUserPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), AccountPrx.class, _AccountPrxI.class);
     }
 
     /**
@@ -133,9 +214,9 @@ public interface PremiumUserPrx extends UserPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type.
      **/
-    static PremiumUserPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static AccountPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, PremiumUserPrx.class, _PremiumUserPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, AccountPrx.class, _AccountPrxI.class);
     }
 
     /**
@@ -144,9 +225,9 @@ public interface PremiumUserPrx extends UserPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type.
      **/
-    static PremiumUserPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static AccountPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, PremiumUserPrx.class, _PremiumUserPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, AccountPrx.class, _AccountPrxI.class);
     }
 
     /**
@@ -155,9 +236,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified per-proxy context.
      **/
     @Override
-    default PremiumUserPrx ice_context(java.util.Map<String, String> newContext)
+    default AccountPrx ice_context(java.util.Map<String, String> newContext)
     {
-        return (PremiumUserPrx)_ice_context(newContext);
+        return (AccountPrx)_ice_context(newContext);
     }
 
     /**
@@ -166,9 +247,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified adapter ID.
      **/
     @Override
-    default PremiumUserPrx ice_adapterId(String newAdapterId)
+    default AccountPrx ice_adapterId(String newAdapterId)
     {
-        return (PremiumUserPrx)_ice_adapterId(newAdapterId);
+        return (AccountPrx)_ice_adapterId(newAdapterId);
     }
 
     /**
@@ -177,9 +258,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified endpoints.
      **/
     @Override
-    default PremiumUserPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
+    default AccountPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
     {
-        return (PremiumUserPrx)_ice_endpoints(newEndpoints);
+        return (AccountPrx)_ice_endpoints(newEndpoints);
     }
 
     /**
@@ -188,9 +269,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified locator cache timeout.
      **/
     @Override
-    default PremiumUserPrx ice_locatorCacheTimeout(int newTimeout)
+    default AccountPrx ice_locatorCacheTimeout(int newTimeout)
     {
-        return (PremiumUserPrx)_ice_locatorCacheTimeout(newTimeout);
+        return (AccountPrx)_ice_locatorCacheTimeout(newTimeout);
     }
 
     /**
@@ -199,9 +280,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified invocation timeout.
      **/
     @Override
-    default PremiumUserPrx ice_invocationTimeout(int newTimeout)
+    default AccountPrx ice_invocationTimeout(int newTimeout)
     {
-        return (PremiumUserPrx)_ice_invocationTimeout(newTimeout);
+        return (AccountPrx)_ice_invocationTimeout(newTimeout);
     }
 
     /**
@@ -210,9 +291,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified caching policy.
      **/
     @Override
-    default PremiumUserPrx ice_connectionCached(boolean newCache)
+    default AccountPrx ice_connectionCached(boolean newCache)
     {
-        return (PremiumUserPrx)_ice_connectionCached(newCache);
+        return (AccountPrx)_ice_connectionCached(newCache);
     }
 
     /**
@@ -221,9 +302,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified endpoint selection policy.
      **/
     @Override
-    default PremiumUserPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
+    default AccountPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
     {
-        return (PremiumUserPrx)_ice_endpointSelection(newType);
+        return (AccountPrx)_ice_endpointSelection(newType);
     }
 
     /**
@@ -234,9 +315,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default PremiumUserPrx ice_secure(boolean b)
+    default AccountPrx ice_secure(boolean b)
     {
-        return (PremiumUserPrx)_ice_secure(b);
+        return (AccountPrx)_ice_secure(b);
     }
 
     /**
@@ -245,9 +326,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified encoding version.
      **/
     @Override
-    default PremiumUserPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
+    default AccountPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
     {
-        return (PremiumUserPrx)_ice_encodingVersion(e);
+        return (AccountPrx)_ice_encodingVersion(e);
     }
 
     /**
@@ -258,9 +339,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default PremiumUserPrx ice_preferSecure(boolean b)
+    default AccountPrx ice_preferSecure(boolean b)
     {
-        return (PremiumUserPrx)_ice_preferSecure(b);
+        return (AccountPrx)_ice_preferSecure(b);
     }
 
     /**
@@ -269,9 +350,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified router.
      **/
     @Override
-    default PremiumUserPrx ice_router(com.zeroc.Ice.RouterPrx router)
+    default AccountPrx ice_router(com.zeroc.Ice.RouterPrx router)
     {
-        return (PremiumUserPrx)_ice_router(router);
+        return (AccountPrx)_ice_router(router);
     }
 
     /**
@@ -280,9 +361,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified locator.
      **/
     @Override
-    default PremiumUserPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
+    default AccountPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
     {
-        return (PremiumUserPrx)_ice_locator(locator);
+        return (AccountPrx)_ice_locator(locator);
     }
 
     /**
@@ -291,9 +372,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified collocation optimization.
      **/
     @Override
-    default PremiumUserPrx ice_collocationOptimized(boolean b)
+    default AccountPrx ice_collocationOptimized(boolean b)
     {
-        return (PremiumUserPrx)_ice_collocationOptimized(b);
+        return (AccountPrx)_ice_collocationOptimized(b);
     }
 
     /**
@@ -301,9 +382,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy that uses twoway invocations.
      **/
     @Override
-    default PremiumUserPrx ice_twoway()
+    default AccountPrx ice_twoway()
     {
-        return (PremiumUserPrx)_ice_twoway();
+        return (AccountPrx)_ice_twoway();
     }
 
     /**
@@ -311,9 +392,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy that uses oneway invocations.
      **/
     @Override
-    default PremiumUserPrx ice_oneway()
+    default AccountPrx ice_oneway()
     {
-        return (PremiumUserPrx)_ice_oneway();
+        return (AccountPrx)_ice_oneway();
     }
 
     /**
@@ -321,9 +402,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy that uses batch oneway invocations.
      **/
     @Override
-    default PremiumUserPrx ice_batchOneway()
+    default AccountPrx ice_batchOneway()
     {
-        return (PremiumUserPrx)_ice_batchOneway();
+        return (AccountPrx)_ice_batchOneway();
     }
 
     /**
@@ -331,9 +412,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy that uses datagram invocations.
      **/
     @Override
-    default PremiumUserPrx ice_datagram()
+    default AccountPrx ice_datagram()
     {
-        return (PremiumUserPrx)_ice_datagram();
+        return (AccountPrx)_ice_datagram();
     }
 
     /**
@@ -341,9 +422,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy that uses batch datagram invocations.
      **/
     @Override
-    default PremiumUserPrx ice_batchDatagram()
+    default AccountPrx ice_batchDatagram()
     {
-        return (PremiumUserPrx)_ice_batchDatagram();
+        return (AccountPrx)_ice_batchDatagram();
     }
 
     /**
@@ -352,9 +433,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified compression setting.
      **/
     @Override
-    default PremiumUserPrx ice_compress(boolean co)
+    default AccountPrx ice_compress(boolean co)
     {
-        return (PremiumUserPrx)_ice_compress(co);
+        return (AccountPrx)_ice_compress(co);
     }
 
     /**
@@ -363,9 +444,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified timeout.
      **/
     @Override
-    default PremiumUserPrx ice_timeout(int t)
+    default AccountPrx ice_timeout(int t)
     {
-        return (PremiumUserPrx)_ice_timeout(t);
+        return (AccountPrx)_ice_timeout(t);
     }
 
     /**
@@ -374,9 +455,9 @@ public interface PremiumUserPrx extends UserPrx
      * @return A proxy with the specified connection ID.
      **/
     @Override
-    default PremiumUserPrx ice_connectionId(String connectionId)
+    default AccountPrx ice_connectionId(String connectionId)
     {
-        return (PremiumUserPrx)_ice_connectionId(connectionId);
+        return (AccountPrx)_ice_connectionId(connectionId);
     }
 
     /**
@@ -385,13 +466,13 @@ public interface PremiumUserPrx extends UserPrx
      * @return A fixed proxy bound to the given connection.
      **/
     @Override
-    default PremiumUserPrx ice_fixed(com.zeroc.Ice.Connection connection)
+    default AccountPrx ice_fixed(com.zeroc.Ice.Connection connection)
     {
-        return (PremiumUserPrx)_ice_fixed(connection);
+        return (AccountPrx)_ice_fixed(connection);
     }
 
     static String ice_staticId()
     {
-        return "::generated::bank::PremiumUser";
+        return "::generated::bank::Account";
     }
 }

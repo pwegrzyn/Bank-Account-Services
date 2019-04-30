@@ -42,7 +42,9 @@ if 'Currency' not in _M_generated.bank.__dict__:
     Currency.EUR = Currency("EUR", 1)
     Currency.USD = Currency("USD", 2)
     Currency.JPY = Currency("JPY", 3)
-    Currency._enumerators = { 0:Currency.PLN, 1:Currency.EUR, 2:Currency.USD, 3:Currency.JPY }
+    Currency.CHF = Currency("CHF", 4)
+    Currency.CNH = Currency("CNH", 5)
+    Currency._enumerators = { 0:Currency.PLN, 1:Currency.EUR, 2:Currency.USD, 3:Currency.JPY, 4:Currency.CHF, 5:Currency.CNH }
 
     _M_generated.bank._t_Currency = IcePy.defineEnum('::generated::bank::Currency', Currency, (), Currency._enumerators)
 
@@ -179,7 +181,7 @@ if 'UserData' not in _M_generated.bank.__dict__:
         ('name', (), IcePy._t_string),
         ('surname', (), IcePy._t_string),
         ('pesel', (), IcePy._t_string),
-        ('monthlyIncome', (), IcePy._t_int)
+        ('monthlyIncome', (), IcePy._t_long)
     ))
 
     _M_generated.bank.UserData = UserData
@@ -280,7 +282,7 @@ if 'AccountCreationResult' not in _M_generated.bank.__dict__:
 if 'Credit' not in _M_generated.bank.__dict__:
     _M_generated.bank.Credit = Ice.createTempClass()
     class Credit(object):
-        def __init__(self, creditRateBaseCurrency=0.0, creditRateForeignCurrency=0.0, baseCurrency=_M_generated.bank.Currency.PLN, foreignCurrency=_M_generated.bank.Currency.PLN, creditPeriod=0, creditValue=0.0, interestRate=0.0, creditCost=0.0):
+        def __init__(self, creditRateBaseCurrency=0, creditRateForeignCurrency=0, baseCurrency=_M_generated.bank.Currency.PLN, foreignCurrency=_M_generated.bank.Currency.PLN, creditPeriod=0, creditValue=0, interestRate=0.0, creditCost=0):
             self.creditRateBaseCurrency = creditRateBaseCurrency
             self.creditRateForeignCurrency = creditRateForeignCurrency
             self.baseCurrency = baseCurrency
@@ -323,14 +325,14 @@ if 'Credit' not in _M_generated.bank.__dict__:
         __repr__ = __str__
 
     _M_generated.bank._t_Credit = IcePy.defineStruct('::generated::bank::Credit', Credit, (), (
-        ('creditRateBaseCurrency', (), IcePy._t_double),
-        ('creditRateForeignCurrency', (), IcePy._t_double),
+        ('creditRateBaseCurrency', (), IcePy._t_long),
+        ('creditRateForeignCurrency', (), IcePy._t_long),
         ('baseCurrency', (), _M_generated.bank._t_Currency),
         ('foreignCurrency', (), _M_generated.bank._t_Currency),
         ('creditPeriod', (), IcePy._t_int),
-        ('creditValue', (), IcePy._t_double),
+        ('creditValue', (), IcePy._t_long),
         ('interestRate', (), IcePy._t_double),
-        ('creditCost', (), IcePy._t_double)
+        ('creditCost', (), IcePy._t_long)
     ))
 
     _M_generated.bank.Credit = Credit
@@ -373,6 +375,25 @@ if 'AuthorizationFailed' not in _M_generated.bank.__dict__:
 
     _M_generated.bank.AuthorizationFailed = AuthorizationFailed
     del AuthorizationFailed
+
+if 'PESELAlreadyInUse' not in _M_generated.bank.__dict__:
+    _M_generated.bank.PESELAlreadyInUse = Ice.createTempClass()
+    class PESELAlreadyInUse(_M_generated.bank.BankSystemException):
+        def __init__(self, reason=''):
+            _M_generated.bank.BankSystemException.__init__(self, reason)
+
+        def __str__(self):
+            return IcePy.stringifyException(self)
+
+        __repr__ = __str__
+
+        _ice_id = '::generated::bank::PESELAlreadyInUse'
+
+    _M_generated.bank._t_PESELAlreadyInUse = IcePy.defineException('::generated::bank::PESELAlreadyInUse', PESELAlreadyInUse, (), False, _M_generated.bank._t_BankSystemException, ())
+    PESELAlreadyInUse._ice_type = _M_generated.bank._t_PESELAlreadyInUse
+
+    _M_generated.bank.PESELAlreadyInUse = PESELAlreadyInUse
+    del PESELAlreadyInUse
 
 if 'InvalidCredentials' not in _M_generated.bank.__dict__:
     _M_generated.bank.InvalidCredentials = Ice.createTempClass()
@@ -450,64 +471,76 @@ if 'SystemCurrentlyUnavailable' not in _M_generated.bank.__dict__:
     _M_generated.bank.SystemCurrentlyUnavailable = SystemCurrentlyUnavailable
     del SystemCurrentlyUnavailable
 
-_M_generated.bank._t_User = IcePy.defineValue('::generated::bank::User', Ice.Value, -1, (), False, True, None, ())
+_M_generated.bank._t_Account = IcePy.defineValue('::generated::bank::Account', Ice.Value, -1, (), False, True, None, ())
 
-if 'UserPrx' not in _M_generated.bank.__dict__:
-    _M_generated.bank.UserPrx = Ice.createTempClass()
-    class UserPrx(Ice.ObjectPrx):
+if 'AccountPrx' not in _M_generated.bank.__dict__:
+    _M_generated.bank.AccountPrx = Ice.createTempClass()
+    class AccountPrx(Ice.ObjectPrx):
 
         def checkAccountBalance(self, context=None):
-            return _M_generated.bank.User._op_checkAccountBalance.invoke(self, ((), context))
+            return _M_generated.bank.Account._op_checkAccountBalance.invoke(self, ((), context))
 
         def checkAccountBalanceAsync(self, context=None):
-            return _M_generated.bank.User._op_checkAccountBalance.invokeAsync(self, ((), context))
+            return _M_generated.bank.Account._op_checkAccountBalance.invokeAsync(self, ((), context))
 
         def begin_checkAccountBalance(self, _response=None, _ex=None, _sent=None, context=None):
-            return _M_generated.bank.User._op_checkAccountBalance.begin(self, ((), _response, _ex, _sent, context))
+            return _M_generated.bank.Account._op_checkAccountBalance.begin(self, ((), _response, _ex, _sent, context))
 
         def end_checkAccountBalance(self, _r):
-            return _M_generated.bank.User._op_checkAccountBalance.end(self, _r)
+            return _M_generated.bank.Account._op_checkAccountBalance.end(self, _r)
 
         def checkAccountType(self, context=None):
-            return _M_generated.bank.User._op_checkAccountType.invoke(self, ((), context))
+            return _M_generated.bank.Account._op_checkAccountType.invoke(self, ((), context))
 
         def checkAccountTypeAsync(self, context=None):
-            return _M_generated.bank.User._op_checkAccountType.invokeAsync(self, ((), context))
+            return _M_generated.bank.Account._op_checkAccountType.invokeAsync(self, ((), context))
 
         def begin_checkAccountType(self, _response=None, _ex=None, _sent=None, context=None):
-            return _M_generated.bank.User._op_checkAccountType.begin(self, ((), _response, _ex, _sent, context))
+            return _M_generated.bank.Account._op_checkAccountType.begin(self, ((), _response, _ex, _sent, context))
 
         def end_checkAccountType(self, _r):
-            return _M_generated.bank.User._op_checkAccountType.end(self, _r)
+            return _M_generated.bank.Account._op_checkAccountType.end(self, _r)
+
+        def applyForCredit(self, currency, creditValue, period, context=None):
+            return _M_generated.bank.Account._op_applyForCredit.invoke(self, ((currency, creditValue, period), context))
+
+        def applyForCreditAsync(self, currency, creditValue, period, context=None):
+            return _M_generated.bank.Account._op_applyForCredit.invokeAsync(self, ((currency, creditValue, period), context))
+
+        def begin_applyForCredit(self, currency, creditValue, period, _response=None, _ex=None, _sent=None, context=None):
+            return _M_generated.bank.Account._op_applyForCredit.begin(self, ((currency, creditValue, period), _response, _ex, _sent, context))
+
+        def end_applyForCredit(self, _r):
+            return _M_generated.bank.Account._op_applyForCredit.end(self, _r)
 
         @staticmethod
         def checkedCast(proxy, facetOrContext=None, context=None):
-            return _M_generated.bank.UserPrx.ice_checkedCast(proxy, '::generated::bank::User', facetOrContext, context)
+            return _M_generated.bank.AccountPrx.ice_checkedCast(proxy, '::generated::bank::Account', facetOrContext, context)
 
         @staticmethod
         def uncheckedCast(proxy, facet=None):
-            return _M_generated.bank.UserPrx.ice_uncheckedCast(proxy, facet)
+            return _M_generated.bank.AccountPrx.ice_uncheckedCast(proxy, facet)
 
         @staticmethod
         def ice_staticId():
-            return '::generated::bank::User'
-    _M_generated.bank._t_UserPrx = IcePy.defineProxy('::generated::bank::User', UserPrx)
+            return '::generated::bank::Account'
+    _M_generated.bank._t_AccountPrx = IcePy.defineProxy('::generated::bank::Account', AccountPrx)
 
-    _M_generated.bank.UserPrx = UserPrx
-    del UserPrx
+    _M_generated.bank.AccountPrx = AccountPrx
+    del AccountPrx
 
-    _M_generated.bank.User = Ice.createTempClass()
-    class User(Ice.Object):
+    _M_generated.bank.Account = Ice.createTempClass()
+    class Account(Ice.Object):
 
         def ice_ids(self, current=None):
-            return ('::Ice::Object', '::generated::bank::User')
+            return ('::Ice::Object', '::generated::bank::Account')
 
         def ice_id(self, current=None):
-            return '::generated::bank::User'
+            return '::generated::bank::Account'
 
         @staticmethod
         def ice_staticId():
-            return '::generated::bank::User'
+            return '::generated::bank::Account'
 
         def checkAccountBalance(self, current=None):
             raise NotImplementedError("servant method 'checkAccountBalance' not implemented")
@@ -515,82 +548,23 @@ if 'UserPrx' not in _M_generated.bank.__dict__:
         def checkAccountType(self, current=None):
             raise NotImplementedError("servant method 'checkAccountType' not implemented")
 
-        def __str__(self):
-            return IcePy.stringify(self, _M_generated.bank._t_UserDisp)
-
-        __repr__ = __str__
-
-    _M_generated.bank._t_UserDisp = IcePy.defineClass('::generated::bank::User', User, (), None, ())
-    User._ice_type = _M_generated.bank._t_UserDisp
-
-    User._op_checkAccountBalance = IcePy.Operation('checkAccountBalance', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), IcePy._t_double, False, 0), ())
-    User._op_checkAccountType = IcePy.Operation('checkAccountType', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), _M_generated.bank._t_AccountType, False, 0), ())
-
-    _M_generated.bank.User = User
-    del User
-
-_M_generated.bank._t_PremiumUser = IcePy.defineValue('::generated::bank::PremiumUser', Ice.Value, -1, (), False, True, None, ())
-
-if 'PremiumUserPrx' not in _M_generated.bank.__dict__:
-    _M_generated.bank.PremiumUserPrx = Ice.createTempClass()
-    class PremiumUserPrx(_M_generated.bank.UserPrx):
-
-        def applyForCredit(self, currency, creditValue, period, context=None):
-            return _M_generated.bank.PremiumUser._op_applyForCredit.invoke(self, ((currency, creditValue, period), context))
-
-        def applyForCreditAsync(self, currency, creditValue, period, context=None):
-            return _M_generated.bank.PremiumUser._op_applyForCredit.invokeAsync(self, ((currency, creditValue, period), context))
-
-        def begin_applyForCredit(self, currency, creditValue, period, _response=None, _ex=None, _sent=None, context=None):
-            return _M_generated.bank.PremiumUser._op_applyForCredit.begin(self, ((currency, creditValue, period), _response, _ex, _sent, context))
-
-        def end_applyForCredit(self, _r):
-            return _M_generated.bank.PremiumUser._op_applyForCredit.end(self, _r)
-
-        @staticmethod
-        def checkedCast(proxy, facetOrContext=None, context=None):
-            return _M_generated.bank.PremiumUserPrx.ice_checkedCast(proxy, '::generated::bank::PremiumUser', facetOrContext, context)
-
-        @staticmethod
-        def uncheckedCast(proxy, facet=None):
-            return _M_generated.bank.PremiumUserPrx.ice_uncheckedCast(proxy, facet)
-
-        @staticmethod
-        def ice_staticId():
-            return '::generated::bank::PremiumUser'
-    _M_generated.bank._t_PremiumUserPrx = IcePy.defineProxy('::generated::bank::PremiumUser', PremiumUserPrx)
-
-    _M_generated.bank.PremiumUserPrx = PremiumUserPrx
-    del PremiumUserPrx
-
-    _M_generated.bank.PremiumUser = Ice.createTempClass()
-    class PremiumUser(_M_generated.bank.User):
-
-        def ice_ids(self, current=None):
-            return ('::Ice::Object', '::generated::bank::PremiumUser', '::generated::bank::User')
-
-        def ice_id(self, current=None):
-            return '::generated::bank::PremiumUser'
-
-        @staticmethod
-        def ice_staticId():
-            return '::generated::bank::PremiumUser'
-
         def applyForCredit(self, currency, creditValue, period, current=None):
             raise NotImplementedError("servant method 'applyForCredit' not implemented")
 
         def __str__(self):
-            return IcePy.stringify(self, _M_generated.bank._t_PremiumUserDisp)
+            return IcePy.stringify(self, _M_generated.bank._t_AccountDisp)
 
         __repr__ = __str__
 
-    _M_generated.bank._t_PremiumUserDisp = IcePy.defineClass('::generated::bank::PremiumUser', PremiumUser, (), None, (_M_generated.bank._t_UserDisp,))
-    PremiumUser._ice_type = _M_generated.bank._t_PremiumUserDisp
+    _M_generated.bank._t_AccountDisp = IcePy.defineClass('::generated::bank::Account', Account, (), None, ())
+    Account._ice_type = _M_generated.bank._t_AccountDisp
 
-    PremiumUser._op_applyForCredit = IcePy.Operation('applyForCredit', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_generated.bank._t_Currency, False, 0), ((), IcePy._t_double, False, 0), ((), IcePy._t_int, False, 0)), (), ((), _M_generated.bank._t_Credit, False, 0), (_M_generated.bank._t_CurrencyNotSupported,))
+    Account._op_checkAccountBalance = IcePy.Operation('checkAccountBalance', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), IcePy._t_long, False, 0), ())
+    Account._op_checkAccountType = IcePy.Operation('checkAccountType', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), _M_generated.bank._t_AccountType, False, 0), ())
+    Account._op_applyForCredit = IcePy.Operation('applyForCredit', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_generated.bank._t_Currency, False, 0), ((), IcePy._t_long, False, 0), ((), IcePy._t_int, False, 0)), (), ((), _M_generated.bank._t_Credit, False, 0), (_M_generated.bank._t_CurrencyNotSupported, _M_generated.bank._t_AuthorizationFailed))
 
-    _M_generated.bank.PremiumUser = PremiumUser
-    del PremiumUser
+    _M_generated.bank.Account = Account
+    del Account
 
 _M_generated.bank._t_System = IcePy.defineValue('::generated::bank::System', Ice.Value, -1, (), False, True, None, ())
 
@@ -610,29 +584,17 @@ if 'SystemPrx' not in _M_generated.bank.__dict__:
         def end_createAccount(self, _r):
             return _M_generated.bank.System._op_createAccount.end(self, _r)
 
-        def logInStandard(self, pesel, context=None):
-            return _M_generated.bank.System._op_logInStandard.invoke(self, ((pesel, ), context))
+        def logInToAccount(self, pesel, context=None):
+            return _M_generated.bank.System._op_logInToAccount.invoke(self, ((pesel, ), context))
 
-        def logInStandardAsync(self, pesel, context=None):
-            return _M_generated.bank.System._op_logInStandard.invokeAsync(self, ((pesel, ), context))
+        def logInToAccountAsync(self, pesel, context=None):
+            return _M_generated.bank.System._op_logInToAccount.invokeAsync(self, ((pesel, ), context))
 
-        def begin_logInStandard(self, pesel, _response=None, _ex=None, _sent=None, context=None):
-            return _M_generated.bank.System._op_logInStandard.begin(self, ((pesel, ), _response, _ex, _sent, context))
+        def begin_logInToAccount(self, pesel, _response=None, _ex=None, _sent=None, context=None):
+            return _M_generated.bank.System._op_logInToAccount.begin(self, ((pesel, ), _response, _ex, _sent, context))
 
-        def end_logInStandard(self, _r):
-            return _M_generated.bank.System._op_logInStandard.end(self, _r)
-
-        def logInPremium(self, pesel, context=None):
-            return _M_generated.bank.System._op_logInPremium.invoke(self, ((pesel, ), context))
-
-        def logInPremiumAsync(self, pesel, context=None):
-            return _M_generated.bank.System._op_logInPremium.invokeAsync(self, ((pesel, ), context))
-
-        def begin_logInPremium(self, pesel, _response=None, _ex=None, _sent=None, context=None):
-            return _M_generated.bank.System._op_logInPremium.begin(self, ((pesel, ), _response, _ex, _sent, context))
-
-        def end_logInPremium(self, _r):
-            return _M_generated.bank.System._op_logInPremium.end(self, _r)
+        def end_logInToAccount(self, _r):
+            return _M_generated.bank.System._op_logInToAccount.end(self, _r)
 
         @staticmethod
         def checkedCast(proxy, facetOrContext=None, context=None):
@@ -666,11 +628,8 @@ if 'SystemPrx' not in _M_generated.bank.__dict__:
         def createAccount(self, userData, current=None):
             raise NotImplementedError("servant method 'createAccount' not implemented")
 
-        def logInStandard(self, pesel, current=None):
-            raise NotImplementedError("servant method 'logInStandard' not implemented")
-
-        def logInPremium(self, pesel, current=None):
-            raise NotImplementedError("servant method 'logInPremium' not implemented")
+        def logInToAccount(self, pesel, current=None):
+            raise NotImplementedError("servant method 'logInToAccount' not implemented")
 
         def __str__(self):
             return IcePy.stringify(self, _M_generated.bank._t_SystemDisp)
@@ -680,9 +639,8 @@ if 'SystemPrx' not in _M_generated.bank.__dict__:
     _M_generated.bank._t_SystemDisp = IcePy.defineClass('::generated::bank::System', System, (), None, ())
     System._ice_type = _M_generated.bank._t_SystemDisp
 
-    System._op_createAccount = IcePy.Operation('createAccount', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_generated.bank._t_UserData, False, 0),), (), ((), _M_generated.bank._t_AccountCreationResult, False, 0), ())
-    System._op_logInStandard = IcePy.Operation('logInStandard', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), ((), _M_generated.bank._t_UserPrx, False, 0), (_M_generated.bank._t_InvalidCredentials,))
-    System._op_logInPremium = IcePy.Operation('logInPremium', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), ((), _M_generated.bank._t_PremiumUserPrx, False, 0), (_M_generated.bank._t_InvalidCredentials, _M_generated.bank._t_AuthorizationFailed))
+    System._op_createAccount = IcePy.Operation('createAccount', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_generated.bank._t_UserData, False, 0),), (), ((), _M_generated.bank._t_AccountCreationResult, False, 0), (_M_generated.bank._t_PESELAlreadyInUse,))
+    System._op_logInToAccount = IcePy.Operation('logInToAccount', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), ((), _M_generated.bank._t_AccountPrx, False, 0), (_M_generated.bank._t_InvalidCredentials,))
 
     _M_generated.bank.System = System
     del System

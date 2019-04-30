@@ -17,14 +17,11 @@ package generated.bank;
 
 public interface System extends com.zeroc.Ice.Object
 {
-    AccountCreationResult createAccount(UserData userData, com.zeroc.Ice.Current current);
+    AccountCreationResult createAccount(UserData userData, com.zeroc.Ice.Current current)
+        throws PESELAlreadyInUse;
 
-    UserPrx logInStandard(String pesel, com.zeroc.Ice.Current current)
+    AccountPrx logInToAccount(String pesel, com.zeroc.Ice.Current current)
         throws InvalidCredentials;
-
-    PremiumUserPrx logInPremium(String pesel, com.zeroc.Ice.Current current)
-        throws AuthorizationFailed,
-               InvalidCredentials;
 
     /** @hidden */
     static final String[] _iceIds =
@@ -56,8 +53,10 @@ public interface System extends com.zeroc.Ice.Object
      * @param inS -
      * @param current -
      * @return -
+     * @throws com.zeroc.Ice.UserException -
     **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_createAccount(System obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+        throws com.zeroc.Ice.UserException
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
@@ -79,7 +78,7 @@ public interface System extends com.zeroc.Ice.Object
      * @return -
      * @throws com.zeroc.Ice.UserException -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_logInStandard(System obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_logInToAccount(System obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
         throws com.zeroc.Ice.UserException
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
@@ -87,30 +86,7 @@ public interface System extends com.zeroc.Ice.Object
         String iceP_pesel;
         iceP_pesel = istr.readString();
         inS.endReadParams();
-        UserPrx ret = obj.logInStandard(iceP_pesel, current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeProxy(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-     * @throws com.zeroc.Ice.UserException -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_logInPremium(System obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-        throws com.zeroc.Ice.UserException
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_pesel;
-        iceP_pesel = istr.readString();
-        inS.endReadParams();
-        PremiumUserPrx ret = obj.logInPremium(iceP_pesel, current);
+        AccountPrx ret = obj.logInToAccount(iceP_pesel, current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
         ostr.writeProxy(ret);
         inS.endWriteParams(ostr);
@@ -125,8 +101,7 @@ public interface System extends com.zeroc.Ice.Object
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "logInPremium",
-        "logInStandard"
+        "logInToAccount"
     };
 
     /** @hidden */
@@ -164,11 +139,7 @@ public interface System extends com.zeroc.Ice.Object
             }
             case 5:
             {
-                return _iceD_logInPremium(this, in, current);
-            }
-            case 6:
-            {
-                return _iceD_logInStandard(this, in, current);
+                return _iceD_logInToAccount(this, in, current);
             }
         }
 
