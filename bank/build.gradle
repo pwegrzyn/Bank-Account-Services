@@ -1,7 +1,18 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.5'
+    }
+}
+
 plugins {
-    id 'java'
-    id 'application'
-    id "com.google.protobuf" version "0.8.8"
+    id "com.google.protobuf" version "0.8.5"
+    id "java"
+    id "application"
+    id "idea"
+    id 'com.github.ben-manes.versions' version '0.19.0'
 }
 
 apply plugin: 'application'
@@ -12,8 +23,26 @@ group 'ds.middleware'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-mainClassName = 'code.Main'
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.6.0"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.12.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src/generated"
+}
+
+mainClassName = 'service.Main'
 
 repositories {
     mavenCentral()
@@ -22,28 +51,18 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'com.zeroc:ice:3.7.2'
-    compile 'io.grpc:grpc-netty-shaded:1.20.0'
-    compile 'io.grpc:grpc-protobuf:1.20.0'
-    compile 'io.grpc:grpc-stub:1.20.0'
-    compile 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+    compile 'io.grpc:grpc-all:1.12.0'
 }
 
-run{
+idea {
+    module {
+        sourceDirs += file("${projectDir}/src/generated/main/java");
+        sourceDirs += file("${projectDir}/src/generated/main/grpc");
+    }
+}
+
+startScripts.enabled = false
+
+run {
     standardInput = System.in
-}
-
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.7.1"
-    }
-    plugins {
-        grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.20.0'
-        }
-    }
-    generateProtoTasks {
-        all()*.plugins {
-            grpc {}
-        }
-    }
 }
