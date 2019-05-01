@@ -9,14 +9,13 @@ and the currency service (Java).
 ### Prerequisites
 
 The project was tested on this stack:
-* Gradle
+* Gradle 5.0
 * Java 1.8+
 * Python 3.7
-* pip
-* make
+* pip 18.1
+* make 3.81
 * WSL (bash)
 
-Currenty only works on Windows
 
 ### Running
 
@@ -29,7 +28,12 @@ make init
 
 Run the bank application:
 ```
-make run_bank_serevr
+make run_bank_service
+```
+
+Generate middleware interfaces:
+```
+make interface
 ```
 
 See Makefile for more details
